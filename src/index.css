@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body, html {
+        @apply  m-0 p-0 scroll-smooth
+    }
+    h1 {
+        @apply text-[2.5rem] md:text-[3rem] font-bold
+    }
+    nav ul li a.active {
+        @apply pb-2 border-b-[2px] border-secondary
+    }
+    }
