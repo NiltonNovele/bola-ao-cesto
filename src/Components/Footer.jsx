@@ -26,10 +26,6 @@ const Footer = () => {
         style={{ backgroundImage: "url('/footer.jpg')" }}
       ></div>
 
-      {/* Decorative circles */}
-      {/* <div className="bg-yellow opacity-50 w-[600px] h-[600px] absolute -top-[100px] -left-[200px] rounded-full z-0"></div>
-      <div className="bg-purple opacity-50 w-[600px] h-[600px] absolute bottom-[-300px] right-[-400px] rounded-full z-0"></div> */}
-
       {/* Content */}
       <div className="relative z-10 container max-w-[1440px] px-5 py-12 md:py-24 flex flex-col md:flex-row justify-between items-start gap-10 mx-auto">
         {/* Left Section */}
@@ -90,6 +86,22 @@ const Footer = () => {
           <p>info@bolaocesto.co.mz</p>
           <p>Av. Amilcar Cabral, Maputo, Mozambique</p>
         </div>
+      </div>
+
+      {/* Bottom Footer */}
+      <div className="relative z-10 w-full bg-black/80 py-4 text-center text-white text-sm mt-5">
+        <p>© 2025 Bola Ao Cesto. Todos os direitos reservados.</p>
+        <p>
+          Desenvolvido pela{" "}
+          <a
+            href="https://synctechx.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-yellow-300"
+          >
+            SyncTechX
+          </a>
+        </p>
       </div>
     </div>
   );

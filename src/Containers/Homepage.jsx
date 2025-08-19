@@ -61,8 +61,10 @@ const Homepage = () => {
 
       {/* Quem Somos / Missão Section */}
       <section className="w-full bg-white2 relative overflow-hidden py-20">
+        {/* Decorative Circle */}
         <div className="bg-royal-blue opacity-10 w-[600px] h-[600px] absolute -top-[150px] -left-[100px] rounded-full"></div>
-        <div className="max-w-[1440px] mx-auto px-5 md:px-20 flex flex-col md:flex-row gap-16 items-center">
+
+        <div className="max-w-[1440px] mx-auto px-5 md:px-20 flex flex-col md:flex-row gap-16 items-start">
           {/* Text Column */}
           <div className="flex-1 flex flex-col gap-8">
             <h2 className="font-orbitron text-4xl md:text-5xl text-royal-blue">
@@ -113,9 +115,33 @@ const Homepage = () => {
                 patrocinadores, transmissões locais e ativações de marca.
               </li>
             </ul>
+
+            <h3 className="font-orbitron text-3xl text-royal-blue mt-6">
+              Marketing & Publicidade
+            </h3>
+            <ul className="list-disc list-inside font-anek text-lg space-y-2 text-black/80">
+              <li>
+                Entre 14 de Março e 11 de Junho, o perfil oficial do Instagram
+                (@bac_1v1) registou 433.517 visualizações e alcançou 40.884
+                contas únicas.
+              </li>
+              <li>
+                Os stories representaram 35,6% das visualizações, reels 33,8% e
+                posts 29,8%, mostrando uma estratégia de conteúdo equilibrada.
+              </li>
+              <li>
+                65,9% das visualizações foram de não seguidores, provando a
+                capacidade do evento em atrair novos públicos.
+              </li>
+              <li>
+                Vários conteúdos ultrapassaram 10.000 visualizações, com
+                destaque para um vídeo com 33.624 views, reforçando o valor da
+                plataforma para patrocinadores e parceiros.
+              </li>
+            </ul>
           </div>
 
-          {/* Image Carousel Column */}
+          {/* Image Column */}
           <div className="flex-1 grid grid-cols-2 gap-4">
             {Array.from({ length: boxesToShow }).map((_, idx) => {
               const imgIndex = (startIndex + idx) % allImages.length;
@@ -135,86 +161,81 @@ const Homepage = () => {
           </div>
         </div>
 
-        {/* Resultados Section */}
+        {/* Statistics Section */}
         <div ref={ref} className="max-w-[1440px] mx-auto px-5 md:px-20 mt-20">
           <h2 className="font-orbitron text-4xl md:text-5xl text-royal-blue text-center mb-12">
-            1ª Edição - Resultados
+            Resultados de Marketing
           </h2>
-          <p className="text-center font-anek text-lg mb-10">
-            8 de Junho, 2025, Pavilhão da A Politécnica, Maputo
-          </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
             <div className="bg-yellow/20 rounded-xl p-8">
               <h3 className="font-orbitron text-3xl text-royal-blue mb-2">
-                Bilhetes Vendidos
+                Visualizações
               </h3>
               <p className="text-4xl md:text-5xl font-bold text-black">
-                {inView && <CountUp start={0} end={750} duration={2} />}
+                {inView && (
+                  <CountUp start={0} end={433517} duration={2} separator="," />
+                )}
               </p>
-              <p className="font-anek text-black/70">
-                Total de bilhetes vendidos
-              </p>
+              <p className="font-anek text-black/70">Visualizações totais</p>
             </div>
 
             <div className="bg-green-200/30 rounded-xl p-8">
               <h3 className="font-orbitron text-3xl text-royal-blue mb-2">
-                Receita do Bar
+                Contas Únicas
               </h3>
               <p className="text-4xl md:text-5xl font-bold text-black">
                 {inView && (
-                  <CountUp start={0} end={51728} duration={2} separator="," />
-                )}{" "}
-                MZN
+                  <CountUp start={0} end={40884} duration={2} separator="," />
+                )}
               </p>
-              <p className="font-anek text-black/70">Arrecadados no bar</p>
+              <p className="font-anek text-black/70">Contas alcançadas</p>
             </div>
 
             <div className="bg-blue-200/30 rounded-xl p-8">
               <h3 className="font-orbitron text-3xl text-royal-blue mb-2">
-                Feira Gastronómica
+                Conteúdos Populares
               </h3>
               <p className="text-4xl md:text-5xl font-bold text-black">
-                {inView && (
-                  <CountUp start={0} end={48000} duration={2} separator="," />
-                )}{" "}
-                MZN
+                33.624
               </p>
-              <p className="font-anek text-black/70">Vendas na feira</p>
+              <p className="font-anek text-black/70">
+                Maior visualização em um post
+              </p>
             </div>
           </div>
 
           <p className="text-center font-anek text-black/70 mt-10">
-            O evento demonstrou forte envolvimento do público e excelente
-            potencial comercial. Também teve visibilidade mediática
-            significativa, com aparição no canal nacional TV Sucesso.
+            O desempenho orgânico demonstra uma campanha digital altamente
+            eficaz, atraindo novos públicos e reforçando a relevância da marca
+            para patrocinadores e parceiros.
           </p>
         </div>
       </section>
 
       {/* Sponsors Section */}
-      <div className="w-full py-20 bg-white flex flex-col items-center">
+      <section className="w-full py-20 bg-white flex flex-col items-center">
         <h2 className="text-3xl md:text-4xl font-orbitron text-royal-blue mb-12 text-center">
-          Sponsors
+          Parceiros
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 items-center">
-          {[1, 2, 3, 4, 5].map((i) => (
+        <div className="flex flex-wrap justify-center items-center gap-8 max-w-[1200px] mx-auto">
+          {[1, 2, 3, 4].map((i) => (
             <div
               key={i}
-              className="flex justify-center items-center p-4 border rounded-lg shadow-sm"
+              className="flex justify-center items-center p-4 border rounded-lg shadow-sm transition-transform transform hover:scale-105"
             >
               <img
                 src={`/parceiros/logo${i}.png`}
                 alt={`Sponsor ${i}`}
-                className="h-16 object-contain"
+                className="h-16 md:h-20 object-contain"
               />
             </div>
           ))}
         </div>
-      </div>
+      </section>
 
       {/* Best Plays & Funny Videos */}
-      <div className="w-full bg-bg1">
+      {/* <div className="w-full bg-bg1">
         <div className="max-w-[1440px] h-auto px-[20px] py-[50px] md:p-[100px] flex gap-[20px] flex-col mx-auto">
           <h3 className="font-orbitron text-royal-blue text-3xl capitalize">
             Destaques
@@ -226,7 +247,7 @@ const Homepage = () => {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

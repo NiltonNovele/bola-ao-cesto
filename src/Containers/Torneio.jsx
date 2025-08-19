@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { FaCrown, FaCalendarAlt } from "react-icons/fa";
+import { FaCrown, FaCalendarAlt, FaTicketAlt } from "react-icons/fa";
 
 const editions = {
   first: {
-    year: "2023",
+    year: "2025",
     description:
-      "A primeira edição marcou o início da Bola ao Cesto, reunindo 18 atletas numa competição histórica. Jogos intensos, surpresas nas eliminatórias e uma final memorável coroaram o primeiro campeão.",
-    winner: "João Silva",
+      "A primeira edição marcou o início da Bola ao Cesto, reunindo 24 atletas numa competição histórica. Jogos intensos, surpresas nas eliminatórias e uma final memorável coroaram o primeiro campeão.",
+    winner: "João José Júnior",
     roadToFinal: {
       quarterFinals: [
         ["João Silva", "Rui Ferreira"],
@@ -28,38 +28,50 @@ const editions = {
     ],
   },
   second: {
-    year: "2024",
+    year: "2025",
     description:
-      "A segunda edição trouxe ainda mais competitividade, com novos jogadores e partidas épicas. O torneio elevou a fasquia e consolidou a Bola ao Cesto como o evento mais aguardado do ano.",
-    winner: "Paulo Rocha",
+      "A segunda edição promete ser histórica! Novos talentos, partidas épicas e surpresas até a final. Prepare-se para a emoção da Bola ao Cesto.",
+    winner: null,
     roadToFinal: {
-      quarterFinals: [
-        ["Paulo Rocha", "José Martins"],
-        ["Ricardo Moreira", "Bruno Lopes"],
-        ["Luis Fonseca", "Nuno Gomes"],
-        ["Tiago Almeida", "Manuel Figueiredo"],
-      ],
-      semiFinals: [
-        ["Paulo Rocha", "Ricardo Moreira"],
-        ["Luis Fonseca", "Tiago Almeida"],
-      ],
-      final: ["Paulo Rocha", "Luis Fonseca"],
-      champion: "Paulo Rocha",
+      quarterFinals: [],
+      semiFinals: [],
+      final: [],
+      champion: null,
     },
-    dates: [
-      { label: "Início da competição", date: "2024-05-05" },
-      { label: "Meias-Finais", date: "2024-06-20" },
-      { label: "Final", date: "2024-07-02" },
-    ],
+    dates: [{ label: "Torneio", date: "2025-08-31" }],
   },
 };
 
 const Torneio = () => {
-  const [edition, setEdition] = useState("first");
+  const [edition, setEdition] = useState("second");
+  const [countdown, setCountdown] = useState("");
 
   useEffect(() => {
     document.title = "Bola Ao Cesto - Torneio";
-  }, []);
+
+    if (edition === "second") {
+      const interval = setInterval(() => {
+        const targetDate = new Date("2025-08-31T10:00:00");
+        const now = new Date();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+          setCountdown("O torneio começou!");
+          clearInterval(interval);
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        setCountdown(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [edition]);
 
   const data = editions[edition];
   const today = new Date();
@@ -68,36 +80,53 @@ const Torneio = () => {
     <div className="bg-gradient-to-b from-gray-100 to-gray-200 min-h-screen">
       {/* Hero */}
       <div
-        className="relative w-full h-[55vh] bg-cover bg-center flex items-center justify-center"
+        className="relative w-full h-[65vh] bg-cover bg-center flex flex-col items-center justify-center text-center"
         style={{ backgroundImage: "url('/banner.png')" }}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
-        <div className="relative text-center text-white animate-fadeIn">
-          <h1 className="text-6xl font-extrabold font-orbitron drop-shadow-lg">
+        <div className="relative z-10 text-white animate-fadeIn px-4">
+          <h1 className="text-5xl md:text-6xl font-extrabold font-orbitron drop-shadow-lg">
             Torneio Bola ao Cesto
           </h1>
-          <p className="mt-4 text-xl italic opacity-90">
+          <p className="mt-4 text-xl md:text-2xl italic opacity-90">
             Onde lendas nascem 🏀🔥
           </p>
+
+          {edition === "second" && (
+            <>
+              {/* Countdown */}
+              <div className="mt-6 bg-yellow-400 text-white px-6 py-3 rounded-full font-bold text-2xl md:text-3xl shadow-lg animate-pulse inline-block">
+                {countdown}
+              </div>
+
+              {/* Botão Comprar Bilhetes */}
+              <a
+                href="/support-us"
+                className="mt-6 inline-flex items-center gap-3 bg-royal-blue hover:bg-indigo-600 text-white font-bold py-3 px-6 rounded-full shadow-xl text-lg transition transform hover:scale-105"
+              >
+                <FaTicketAlt /> Comprar Bilhetes
+              </a>
+            </>
+          )}
         </div>
       </div>
 
+      {/* Main Section */}
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 px-6 py-16">
-        {/* Main Content */}
         <div className="flex-1">
-          {/* Rules */}
+          {/* Como Funciona */}
           <section className="mb-16">
             <h2 className="text-3xl font-orbitron text-center text-royal-blue mb-8">
               Como Funciona o Torneio
             </h2>
-            <div className="bg-white shadow-lg rounded-2xl p-8 border border-royal-blue/30 hover:shadow-2xl transition">
+            <div className="bg-white shadow-xl rounded-2xl p-8 border border-royal-blue/30 hover:shadow-2xl transition">
               <p className="text-gray-700 text-lg leading-relaxed mb-6">
                 O <strong>Torneio Bola ao Cesto</strong> é jogado em formato
                 eliminatório, inspirado nos grandes campeonatos internacionais.
               </p>
               <ul className="list-disc list-inside space-y-3 text-gray-700">
                 <li>
-                  <span className="font-semibold">18 jogadores</span> participam
+                  <span className="font-semibold">24 jogadores</span> participam
                   em cada edição.
                 </li>
                 <li>
@@ -154,69 +183,11 @@ const Torneio = () => {
             <p className="text-gray-700 mt-4 max-w-2xl mx-auto leading-relaxed">
               {data.description}
             </p>
-            <p className="mt-4 text-lg font-semibold text-royal-blue flex justify-center items-center gap-2">
-              <FaCrown className="text-yellow-400" /> Campeão: {data.winner}
-            </p>
-          </section>
-
-          {/* Bracket */}
-          <section>
-            <h3 className="text-2xl font-orbitron text-royal-blue text-center mb-10">
-              Caminho até à Final
-            </h3>
-            <div className="flex justify-center overflow-x-auto">
-              <div className="grid grid-cols-3 gap-12">
-                {/* Quarter Finals */}
-                <div className="space-y-6">
-                  <h4 className="font-bold text-center text-gray-600">
-                    Quartos
-                  </h4>
-                  {data.roadToFinal.quarterFinals.map((match, idx) => (
-                    <div
-                      key={idx}
-                      className="bg-white p-4 rounded-lg shadow text-center hover:scale-105 transition"
-                    >
-                      <p>{match[0]}</p>
-                      <span className="font-bold text-royal-blue">vs</span>
-                      <p>{match[1]}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Semi Finals */}
-                <div className="space-y-12 flex flex-col justify-center">
-                  <h4 className="font-bold text-center text-gray-600">
-                    Meias-Finais
-                  </h4>
-                  {data.roadToFinal.semiFinals.map((match, idx) => (
-                    <div
-                      key={idx}
-                      className="bg-white p-4 rounded-lg shadow text-center hover:scale-105 transition"
-                    >
-                      <p>{match[0]}</p>
-                      <span className="font-bold text-royal-blue">vs</span>
-                      <p>{match[1]}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Final */}
-                <div className="flex flex-col items-center justify-center">
-                  <h4 className="font-bold text-center text-gray-600 mb-4">
-                    Final
-                  </h4>
-                  <div className="bg-gradient-to-b from-white to-gray-50 p-6 rounded-lg shadow-xl text-center border-2 border-yellow-400 hover:scale-105 transition">
-                    <p>{data.roadToFinal.final[0]}</p>
-                    <span className="font-bold text-royal-blue">vs</span>
-                    <p>{data.roadToFinal.final[1]}</p>
-                    <FaCrown className="text-yellow-500 text-3xl mt-3 mx-auto" />
-                    <p className="mt-2 font-bold text-royal-blue">
-                      Campeão: {data.roadToFinal.champion}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {data.winner && (
+              <p className="mt-4 text-lg font-semibold text-royal-blue flex justify-center items-center gap-2">
+                <FaCrown className="text-yellow-400" /> Campeão: {data.winner}
+              </p>
+            )}
           </section>
         </div>
 

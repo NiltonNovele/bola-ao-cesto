@@ -45,15 +45,36 @@ const Plays = () => {
   const handleTouchEnd = (e) => {
     const diff = e.changedTouches[0].clientX - startX.current;
     if (diff > 50) {
-      // Swipe right
       setCurrentImageIndex((prev) =>
         prev - 1 >= 0 ? prev - 1 : selectedEdition.images.length - 1
       );
     } else if (diff < -50) {
-      // Swipe left
       setCurrentImageIndex((prev) =>
         prev + 1 < selectedEdition.images.length ? prev + 1 : 0
       );
+    }
+  };
+
+  // Fullscreen toggle (cross-browser)
+  const toggleFullscreen = () => {
+    const el = document.getElementById("slideshow-container");
+    if (!el) return;
+
+    if (
+      !document.fullscreenElement &&
+      !document.webkitFullscreenElement &&
+      !document.mozFullScreenElement &&
+      !document.msFullscreenElement
+    ) {
+      if (el.requestFullscreen) el.requestFullscreen();
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+      else if (el.msRequestFullscreen) el.msRequestFullscreen();
+    } else {
+      if (document.exitFullscreen) document.exitFullscreen();
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+      else if (document.msExitFullscreen) document.msExitFullscreen();
     }
   };
 
@@ -62,7 +83,6 @@ const Plays = () => {
       {/* Background Music */}
       <audio ref={audioRef} src="/nanye.mp3" loop autoPlay />
 
-      {/* Header */}
       {/* Header */}
       <div className="max-w-[1400px] mx-auto px-5 py-40 flex justify-between items-center border-b border-gray-200">
         <h3 className="font-orbitron text-royal-blue text-2xl font-semibold">
@@ -170,9 +190,10 @@ const Plays = () => {
       </div>
 
       {/* Gallery */}
-      <div className="max-w-[1400px] mx-auto px-5 pb-20">
+      <div className="max-w-[1400px] mx-auto px-5 pb-20 relative">
         {viewMode === "slideshow" && (
           <div
+            id="slideshow-container"
             className="relative w-full h-[70vh] bg-gray-50 rounded-lg overflow-hidden flex items-center justify-center shadow-lg"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
@@ -184,7 +205,22 @@ const Plays = () => {
                 className="w-full h-full object-contain transition-all duration-700"
               />
             )}
+
+            {/* Fullscreen Toggle Button */}
+            <button
+              onClick={toggleFullscreen}
+              className="absolute top-4 right-4 z-20 bg-black/50 text-white px-4 py-2 rounded hover:bg-black/70 transition"
+            >
+              Fullscreen
+            </button>
           </div>
+        )}
+
+        {/* Swipe Comment */}
+        {viewMode === "slideshow" && (
+          <p className="text-center text-gray-500 mt-3 italic text-sm">
+            Arraste para esquerda ou direita para navegar a galeria
+          </p>
         )}
 
         {viewMode === "grid" && (
@@ -208,24 +244,23 @@ const Plays = () => {
         )}
 
         {viewMode === "videos" && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-4">
-            {data.videos?.map((vid, i) => (
-              <div key={i} className="rounded-lg overflow-hidden shadow-md">
-                <iframe
-                  width="100%"
-                  height="250"
-                  src={vid.url}
-                  title={vid.title}
-                  frameBorder="0"
-                  allow="autoplay; encrypted-media"
-                  allowFullScreen
-                />
-                <div className="p-3 bg-gray-100">
-                  <p className="text-gray-800 font-medium">{vid.title}</p>
-                </div>
+          <>
+            {data.videos && data.videos.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-4">
+                {data.videos.map((vid, i) => (
+                  <div key={i} className="rounded-lg overflow-hidden shadow-md">
+                    <div className="p-3 bg-gray-100">
+                      <p className="text-gray-800 font-medium">{vid.title}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            ) : (
+              <p className="text-center text-gray-500 text-lg py-10">
+                Nenhum vídeo disponível
+              </p>
+            )}
+          </>
         )}
       </div>
     </div>

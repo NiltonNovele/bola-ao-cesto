@@ -63,7 +63,7 @@ const NavBar = ({ setShowSearch, showSearch }) => {
               style={({ isActive }) => {
                 return isActive ? { color: "#5e27c5", fontWeight: "bold" } : {};
               }}
-              to="/news"
+              to="/novidades"
             >
               Novidades
             </NavLink>
@@ -83,14 +83,14 @@ const NavBar = ({ setShowSearch, showSearch }) => {
               style={({ isActive }) => {
                 return isActive ? { color: "#5e27c5", fontWeight: "bold" } : {};
               }}
-              to="/our-team"
+              to="/equipe"
             >
               Equipe
             </NavLink>
           </li>
           <li>
             <NavLink
-              to={"/plays"}
+              to={"/momentos"}
               style={({ isActive }) => {
                 return isActive ? { color: "#5e27c5", fontWeight: "bold" } : {};
               }}
@@ -131,7 +131,7 @@ const NavBar = ({ setShowSearch, showSearch }) => {
                       ? { color: "#5e27c5", fontWeight: "bold" }
                       : {};
                   }}
-                  to="/news"
+                  to="/novidades"
                 >
                   Novidades
                 </NavLink>
@@ -155,14 +155,14 @@ const NavBar = ({ setShowSearch, showSearch }) => {
                       ? { color: "#5e27c5", fontWeight: "bold" }
                       : {};
                   }}
-                  to="/our-team"
+                  to="/equipe"
                 >
                   Equipe
                 </NavLink>
               </li>
               <li>
                 <NavLink
-                  to={"/plays"}
+                  to={"/momentos"}
                   style={({ isActive }) => {
                     return isActive
                       ? { color: "#5e27c5", fontWeight: "bold" }
@@ -181,7 +181,7 @@ const NavBar = ({ setShowSearch, showSearch }) => {
       <ul className="flex items-center justify-between gap-1 md:gap-5 font-orbitron ">
         <li>
           <NavLink
-            to="/support-us"
+            to="/bilhetes"
             className="bg-gradient-to-br from-blue-100 to-yellow hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 text-royal-blue"
           >
             Bilhetes

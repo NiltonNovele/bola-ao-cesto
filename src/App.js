@@ -12,7 +12,7 @@ import { Route, Link, Routes } from "react-router-dom";
 import SearchComponent from "./Components/SearchComponent";
 import Plays from "./Containers/Plays";
 import SearchResults from "./Containers/SearchResults";
-import DonationSuccess from "./Containers/DonationSuccess";
+import BilheteSucesso from "./Containers/BilheteSucesso";
 import ReactGA from "react-ga4";
 import ScrollToTop from "./Components/ScrollToTop";
 const TRACKING_ID = "G-KB6YRJSC6G";
@@ -42,14 +42,14 @@ function App() {
             <Homepage showSearch={showSearch} setShowSearch={setShowSearch} />
           }
         />
-        <Route path="/news" element={<News />} />
+        <Route path="/novidades" element={<News />} />
         <Route path="/news/:news_id" element={<NewsDetail />} />
-        <Route path="/our-team" element={<Teams />} />
-        <Route path="/support-us" element={<Donation />} />
-        <Route path="/plays" element={<Plays />} />
+        <Route path="/equipe" element={<Teams />} />
+        <Route path="/bilhetes" element={<Donation />} />
+        <Route path="/momentos" element={<Plays />} />
         <Route path="/torneio" element={<Torneio />} />
         <Route path="/search/:searched" element={<SearchResults />} />
-        <Route path="/donation-success" element={<DonationSuccess />} />
+        <Route path="/BilheteSucesso" element={<BilheteSucesso />} />
         <Route path="/*" element={<PageNotFound />} />
         {/* <Route path="/teams/::team" element ={<TeamsDetail />} /> */}
       </Routes>
