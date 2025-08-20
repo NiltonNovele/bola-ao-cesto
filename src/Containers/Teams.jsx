@@ -91,7 +91,7 @@ const Teams = () => {
                   </h3>
                   <p className="text-center text-sm md:text-base leading-relaxed">
                     {coach.description ||
-                      "Descrição breve sobre este fundador/treinador principal, destacando o seu papel e contribuições para a organização."}
+                      "'A única coisa que tenho a dizer é: Bola para a frente'"}
                   </p>
                 </div>
               </div>
