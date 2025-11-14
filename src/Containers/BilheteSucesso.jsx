@@ -7,7 +7,7 @@ const BilheteSucesso = () => {
   const [file, setFile] = useState(null);
   const [submitted, setSubmitted] = useState(false);
 
-  const [countryCode, setCountryCode] = useState("+258"); // Default Moçambique
+  const [countryCode, setCountryCode] = useState("+258");
   const [whatsapp, setWhatsapp] = useState("");
 
   useEffect(() => {
@@ -37,7 +37,6 @@ const BilheteSucesso = () => {
       style={{ backgroundImage: "url('/suc.jpg')" }}
     >
       <div className="flex flex-col lg:flex-row gap-10 w-full max-w-6xl">
-        {/* Instruction Box */}
         <div className="flex-1 bg-white/60 backdrop-blur-lg rounded-3xl shadow-xl p-8">
           <h2 className="text-2xl md:text-3xl font-extrabold text-blue-900 mb-6 text-center lg:text-left">
             Como funciona?
@@ -70,7 +69,6 @@ const BilheteSucesso = () => {
           </ol>
         </div>
 
-        {/* Form / Success Box */}
         <div className="flex-1 bg-white/70 backdrop-blur-md rounded-3xl shadow-xl p-8 md:p-10">
           {!submitted ? (
             <>
@@ -78,7 +76,6 @@ const BilheteSucesso = () => {
                 Esperamos por ti!
               </h1>
               <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-                {/* Upload comprovativo */}
                 <div className="flex flex-col gap-2">
                   <label className="font-semibold text-lg">
                     Comprovativo de pagamento:
@@ -91,7 +88,6 @@ const BilheteSucesso = () => {
                   />
                 </div>
 
-                {/* Método de recebimento */}
                 <div className="flex flex-col gap-3">
                   <label className="font-semibold text-lg">
                     Como deseja receber o bilhete?
@@ -122,14 +118,12 @@ const BilheteSucesso = () => {
                   </div>
                 </div>
 
-                {/* Campo WhatsApp */}
                 {method === "whatsapp" && (
                   <div className="flex flex-col gap-2 w-full">
                     <label className="font-semibold text-lg">
                       Número de WhatsApp:
                     </label>
                     <div className="flex flex-col sm:flex-row gap-3 w-full">
-                      {/* Country code selector */}
                       <select
                         value={countryCode}
                         onChange={(e) => setCountryCode(e.target.value)}
@@ -142,7 +136,6 @@ const BilheteSucesso = () => {
                         <option value="+55">🇧🇷 +55 (Brasil)</option>
                       </select>
 
-                      {/* WhatsApp number input */}
                       <input
                         type="tel"
                         value={whatsapp}
@@ -156,8 +149,7 @@ const BilheteSucesso = () => {
                     </p>
                   </div>
                 )}
-
-                {/* Campo Email */}
+                
                 {method === "email" && (
                   <div className="flex flex-col gap-2">
                     <label className="font-semibold text-lg">Seu Email:</label>

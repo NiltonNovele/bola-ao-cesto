@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { images } from "../Constants";
 
-const TICKET_PRICE_MZN = 50; // fixed price in MZN
-const TICKET_PRICE_USD = 0.78; // fixed price in USD for PayPal
-const SALE_START_DATE = new Date("2025-08-29T00:00:00"); // ticket sale opens
+const TICKET_PRICE_MZN = 50; 
+const TICKET_PRICE_USD = 0.78; 
+const SALE_START_DATE = new Date("2025-08-29T00:00:00"); 
 
 const MPESA_NUMBER = "84 123 4567";
 const EMOLA_NUMBER = "85 765 4321";

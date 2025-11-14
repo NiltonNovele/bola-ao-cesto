@@ -15,7 +15,6 @@ const PageNotFound = () => {
       }}
     >
       <div className="absolute inset-0 bg-black/50"></div>{" "}
-      {/* dark overlay if needed */}
       <div className="relative p-[40px] bg-slate-100/80 rounded-xl">
         <h1 className="text-[120px] text-royal-blue/90 font-bold flex items-baseline">
           404,{" "}

@@ -6,12 +6,11 @@ const Plays = () => {
     data.editions[0] || { name: "", images: [] }
   );
   const [isMuted, setIsMuted] = useState(false);
-  const [viewMode, setViewMode] = useState("slideshow"); // slideshow | grid | videos
+  const [viewMode, setViewMode] = useState("slideshow");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const audioRef = useRef(null);
   const startX = useRef(0);
 
-  // Play background music
   useEffect(() => {
     document.title = "Galeria | BAC";
     if (audioRef.current) {
@@ -19,7 +18,6 @@ const Plays = () => {
     }
   }, []);
 
-  // Auto loop slideshow
   useEffect(() => {
     if (viewMode === "slideshow" && selectedEdition.images.length > 0) {
       const interval = setInterval(() => {
@@ -38,7 +36,6 @@ const Plays = () => {
     setIsMuted(!isMuted);
   };
 
-  // Swipe gesture handlers
   const handleTouchStart = (e) => {
     startX.current = e.touches[0].clientX;
   };
@@ -55,7 +52,6 @@ const Plays = () => {
     }
   };
 
-  // Fullscreen toggle (cross-browser)
   const toggleFullscreen = () => {
     const el = document.getElementById("slideshow-container");
     if (!el) return;
@@ -80,16 +76,13 @@ const Plays = () => {
 
   return (
     <div className="bg-white min-h-screen w-full text-gray-900">
-      {/* Background Music */}
       <audio ref={audioRef} src="/nanye.mp3" loop autoPlay />
 
-      {/* Header */}
       <div className="max-w-[1400px] mx-auto px-5 py-40 flex justify-between items-center border-b border-gray-200">
         <h3 className="font-orbitron text-royal-blue text-2xl font-semibold">
           Galeria
         </h3>
         <div className="flex items-center gap-3">
-          {/* Mute Icon */}
           <button
             onClick={toggleMute}
             className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
@@ -135,7 +128,6 @@ const Plays = () => {
             )}
           </button>
 
-          {/* Top-right picture */}
           <img
             src="/dunk.png"
             alt="Top Right"
@@ -144,9 +136,7 @@ const Plays = () => {
         </div>
       </div>
 
-      {/* Controls */}
       <div className="max-w-[1400px] mx-auto px-5 py-6 flex flex-col md:flex-row md:items-center gap-6">
-        {/* Edition Selector */}
         <div className="flex gap-3 items-center">
           <label htmlFor="edition" className="text-lg font-medium">
             Selecionar Edição:
@@ -171,7 +161,6 @@ const Plays = () => {
           </select>
         </div>
 
-        {/* View Mode Buttons */}
         <div className="flex gap-3">
           {["slideshow", "grid", "videos"].map((mode) => (
             <button
@@ -189,7 +178,6 @@ const Plays = () => {
         </div>
       </div>
 
-      {/* Gallery */}
       <div className="max-w-[1400px] mx-auto px-5 pb-20 relative">
         {viewMode === "slideshow" && (
           <div
@@ -206,7 +194,6 @@ const Plays = () => {
               />
             )}
 
-            {/* Fullscreen Toggle Button */}
             <button
               onClick={toggleFullscreen}
               className="absolute top-4 right-4 z-20 bg-black/50 text-white px-4 py-2 rounded hover:bg-black/70 transition"
@@ -216,7 +203,6 @@ const Plays = () => {
           </div>
         )}
 
-        {/* Swipe Comment */}
         {viewMode === "slideshow" && (
           <p className="text-center text-gray-500 mt-3 italic text-sm">
             Arraste para esquerda ou direita para navegar a galeria

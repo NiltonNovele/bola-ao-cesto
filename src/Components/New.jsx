@@ -1,23 +1,34 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-const New = ({ title, image, id, content, summary }) => {
+import React from "react";
+import { Link } from "react-router-dom";
+
+const New = ({ title, image, videoUrl, type, id, summary }) => {
   return (
-    <div className='w-full  h-auto flex flex-col gap-3 bg-white rounded-lg'>
-      <div>
-        <img src={image} alt='' />
-      </div>
-      <div className=' p-5 flex flex-col gap-[20px]'>
+    <div className="rounded-lg overflow-hidden shadow-lg bg-white group hover:shadow-xl transition">
+      {type === "video" ? (
+        <video
+          src={videoUrl}
+          controls
+          className="w-full h-[250px] object-cover"
+        />
+      ) : (
+        <img
+          src={image}
+          alt={title}
+          className="w-full h-[250px] object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+      )}
+      <div className="p-4">
+        <h3 className="font-semibold text-lg text-royal-blue mb-2">{title}</h3>
+        <p className="text-gray-600 text-sm mb-3">{summary}</p>
         <Link
-          to={`/news/${id}`}
-          className='font-sans font-bold hover:text-royal-blue'
+          to={`/noticias/${id}`}
+          className="inline-block px-4 py-2 bg-royal-blue text-white rounded-lg text-sm hover:bg-royal-blue/90"
         >
-          {' '}
-          {title}
+          Ler Mais
         </Link>
-        <p className='font-anek'>{summary}</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default New
+export default New;

@@ -1,218 +1,115 @@
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import { Link, NavLink } from "react-router-dom";
 import { PiListLight, PiXLight } from "react-icons/pi";
+import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+
 const NavBar = ({ setShowSearch, showSearch }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
 
+  const navItems = [
+    { name: "Sobre", to: "/" },
+    { name: "Novidades", to: "/novidades" },
+    { name: "Torneio", to: "/torneio" },
+    { name: "Equipe", to: "/equipe" },
+    { name: "Momentos", to: "/momentos" },
+  ];
+
   const mobileNavVariants = {
     hidden: {
-      height: 0,
       opacity: 0,
+      height: 0,
     },
     visible: {
-      height: 300,
       opacity: 1,
-      transition: {
-        type: "tween",
-        duration: 0.5,
-        duration: 0.5,
-        delay: 0.3,
-      },
+      height: "auto",
+      transition: { duration: 0.35, ease: "easeOut" },
     },
     exit: {
-      height: 0,
       opacity: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
-        duration: 0.5,
-        delay: 0.3,
-      },
+      height: 0,
+      transition: { duration: 0.3, ease: "easeIn" },
     },
   };
+
+  const activeStyle = {
+    color: "#5e27c5",
+    fontWeight: "bold",
+  };
+
   return (
-    <div className="w-full top-0 fixed md:w-[90%] px-[20px] p-5 md:px-8 flex justify-between rounded-lg bg-white/30 md:bg-white/20  items-center mx-auto md:top-5 left-0 right-0 backdrop-blur-xl  z-20">
-      <h2 className="flex items-center space-x-4 w-fit">
-        {/* Logo Image */}
-        <img src="/bac.png" alt="Oncourt Logo" className="h-10 md:h-16" />
+    <header className="fixed top-0 left-0 right-0 z-30">
+      <div className="w-full md:w-[90%] mx-auto mt-2 px-4 md:px-8 py-4 flex items-center justify-between rounded-xl bg-white/20 backdrop-blur-xl shadow-lg">
+        
+        {/* Logo */}
+        <div className="flex items-center space-x-4">
+          <img src="/bac.png" alt="Oncourt Logo" className="h-10 md:h-14" />
+          <span className="font-orbitron text-2xl md:text-3xl font-bold">
+            Bola Ao Cesto
+          </span>
+        </div>
 
-        {/* Text next to logo */}
-        <span className="font-orbitron text-xl md:text-3xl font-bold">
-          Bola Ao Cesto
-        </span>
-      </h2>
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex">
+          <ul className="flex items-center gap-10 font-orbitron text-[17px]">
+            {navItems.map((item) => (
+              <li key={item.to}>
+                <NavLink
+                  to={item.to}
+                  style={({ isActive }) => (isActive ? activeStyle : {})}
+                  className="hover:text-[#5e27c5] transition"
+                >
+                  {item.name}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-      <nav className="hidden md:flex">
-        <ul className="flex items-center justify-between gap-10 font-orbitron ">
-          <li>
-            <NavLink
-              style={({ isActive }) => {
-                return isActive ? { color: "#5e27c5", fontWeight: "bold" } : {};
-              }}
-              to="/"
-              href=""
-            >
-              Sobre
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              style={({ isActive }) => {
-                return isActive ? { color: "#5e27c5", fontWeight: "bold" } : {};
-              }}
-              to="/novidades"
-            >
-              Novidades
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              style={({ isActive }) => {
-                return isActive ? { color: "#5e27c5", fontWeight: "bold" } : {};
-              }}
-              to="/torneio"
-            >
-              Torneio
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              style={({ isActive }) => {
-                return isActive ? { color: "#5e27c5", fontWeight: "bold" } : {};
-              }}
-              to="/equipe"
-            >
-              Equipe
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to={"/momentos"}
-              style={({ isActive }) => {
-                return isActive ? { color: "#5e27c5", fontWeight: "bold" } : {};
-              }}
-            >
-              {" "}
-              Momentos
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
+        <div className="flex items-center gap-3 md:gap-5">
+          <NavLink
+            to="/bilhetes"
+            className="font-orbitron bg-gradient-to-br from-blue-100 to-yellow text-royal-blue px-5 py-2 rounded-lg text-sm shadow hover:brightness-110 transition"
+          >
+            Bilhetes
+          </NavLink>
+
+          <button
+            className="md:hidden text-black"
+            onClick={() => setMobileMenu(!mobileMenu)}
+          >
+            {mobileMenu ? <PiXLight size={32} /> : <PiListLight size={32} />}
+          </button>
+        </div>
+      </div>
 
       <AnimatePresence>
         {mobileMenu && (
           <motion.nav
-            variants={mobileNavVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
-            className=" md:hidden fixed bg-white  top-[70px] w-full  left-0 px-[20px] py-5 "
+            variants={mobileNavVariants}
+            className="md:hidden bg-white/90 backdrop-blur-xl shadow-lg rounded-b-xl px-6 py-6"
           >
-            <ul className="flex flex-col items-start z-[10] justify-between gap-10 font-orbitron ">
-              <li>
-                <NavLink
-                  style={({ isActive }) => {
-                    return isActive
-                      ? { color: "#5e27c5", fontWeight: "bold" }
-                      : {};
-                  }}
-                  to="/"
-                >
-                  Sobre
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  style={({ isActive }) => {
-                    return isActive
-                      ? { color: "#5e27c5", fontWeight: "bold" }
-                      : {};
-                  }}
-                  to="/novidades"
-                >
-                  Novidades
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  style={({ isActive }) => {
-                    return isActive
-                      ? { color: "#5e27c5", fontWeight: "bold" }
-                      : {};
-                  }}
-                  to="/torneio"
-                >
-                  Torneio
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  style={({ isActive }) => {
-                    return isActive
-                      ? { color: "#5e27c5", fontWeight: "bold" }
-                      : {};
-                  }}
-                  to="/equipe"
-                >
-                  Equipe
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to={"/momentos"}
-                  style={({ isActive }) => {
-                    return isActive
-                      ? { color: "#5e27c5", fontWeight: "bold" }
-                      : {};
-                  }}
-                >
-                  {" "}
-                  Momentos
-                </NavLink>
-              </li>
+            <ul className="flex flex-col gap-6 font-orbitron text-lg">
+              {navItems.map((item) => (
+                <li key={item.to}>
+                  <NavLink
+                    to={item.to}
+                    style={({ isActive }) => (isActive ? activeStyle : {})}
+                    onClick={() => setMobileMenu(false)}
+                    className="block hover:text-[#5e27c5] transition"
+                  >
+                    {item.name}
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           </motion.nav>
         )}
       </AnimatePresence>
-
-      <ul className="flex items-center justify-between gap-1 md:gap-5 font-orbitron ">
-        <li>
-          <NavLink
-            to="/bilhetes"
-            className="bg-gradient-to-br from-blue-100 to-yellow hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 text-royal-blue"
-          >
-            Bilhetes
-          </NavLink>
-        </li>
-        <li>
-          <Link
-            onClick={() => {
-              setShowSearch(!showSearch);
-            }}
-          >
-            <CiSearch size={30} />
-          </Link>
-        </li>
-        <div className="flex md:hidden">
-          {mobileMenu ? (
-            <PiXLight
-              className="cursor-pointer"
-              size={30}
-              onClick={() => setMobileMenu(false)}
-            />
-          ) : (
-            <PiListLight
-              className="cursor-pointer"
-              size={30}
-              onClick={() => setMobileMenu(true)}
-            />
-          )}
-        </div>
-      </ul>
-    </div>
+    </header>
   );
 };
 
