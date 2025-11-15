@@ -39,7 +39,7 @@ const News = () => {
               <h2 className="font-bold text-2xl md:text-3xl">{featured.title}</h2>
               <p className="text-sm mt-2 max-w-[80%]">{featured.summary}</p>
               <Link
-                to={`/noticias/${featured.id}`}
+                to={`#`}
                 className="mt-4 inline-flex items-center gap-2 px-6 py-2 rounded-lg bg-yellow font-semibold text-royal-blue hover:bg-yellow/80"
               >
                 Ler Mais <PiArrowRightLight />
@@ -56,7 +56,7 @@ const News = () => {
               {featured.content?.substring(0, 250)}...
             </p>
             <Link
-              to={`/noticias/${featured.id}`}
+              to={`#`}
               className="w-[160px] px-6 py-3 rounded-lg bg-royal-blue text-white font-semibold hover:bg-royal-blue/90 text-center"
             >
               Ler Mais

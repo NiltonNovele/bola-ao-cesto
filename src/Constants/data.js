@@ -12,9 +12,9 @@ const News = [
     id: 1,
     title: "Bola Ao Cesto está de volta!!! ",
     summary:
-      "O maior torneio de 1x1 do país está de volta com sua segunda edição. Dia 31 de agosto de 2025. Reserve a data.",
+      "O maior torneio de 1x1 do país está de volta com sua segunda edição. Dia 20 de Dezembro de 2025. Reserve a data.",
     content:
-      "O maior torneio de 1x1 do país está de volta com sua segunda edição. Dia 31 de agosto de 2025. Reserve a data",
+      "O maior torneio de 1x1 do país está de volta com sua segunda edição. 20 de Dezembro de 2025. Reserve a data",
     image: "/win1.jpg",
   },
 ];

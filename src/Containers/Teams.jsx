@@ -186,7 +186,7 @@ const Teams = () => {
           </div>
           <div className="flex items-center gap-4">
             <Mail className="text-royal-blue w-6 h-6" />
-            <p className="text-gray-700">coontacto@bolaocesto.com</p>
+            <p className="text-gray-700">contacto@bolaocesto.com</p>
           </div>
           <div className="flex items-start gap-4">
             <FaStar className="text-yellow-400 w-5 h-5 mt-1" />

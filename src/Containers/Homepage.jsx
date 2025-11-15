@@ -101,7 +101,7 @@ const Homepage = () => {
       >
         <Link
           to="/bilhetes"
-          className="inline-flex items-center gap-3 bg-gradient-to-br from-blue-500 to-yellow-300 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:scale-105 transition-transform duration-300"
+          className="inline-flex items-center gap-3 bg-blue-500  text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:scale-105 transition-transform duration-300"
         >
           Comprar Bilhetes <PiArrowRightLight />
         </Link>

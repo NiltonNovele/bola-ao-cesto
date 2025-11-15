@@ -7,16 +7,16 @@ import { motion } from "framer-motion";
 // ===========================================================
 
 const topTenPlayers = [
-  { name: "Eze Manave", img: "/players/eze.png", color: "from-sky-500 to-blue-700" },
-  { name: "Mouzinho Lourenço", img: "/players/mouzinho.png", color: "from-green-500 to-emerald-700" },
-  { name: "Dingane Jamela", img: "/players/dingane.png", color: "from-yellow-500 to-amber-700" },
-  { name: "Miguel Rafael", img: "/players/miguel.png", color: "from-red-500 to-rose-700" },
-  { name: "Octávio Chuma", img: "/players/octavio.png", color: "from-sky-500 to-blue-700" },
-  { name: "Marcus Sara", img: "/players/marcus.png", color: "from-green-500 to-emerald-700" },
-  { name: "Elsídio Tique", img: "/players/elsidio.png", color: "from-yellow-500 to-amber-700" },
-  { name: "Cândido Adelina", img: "/players/candido.png", color: "from-red-500 to-rose-700" },
-  { name: "Helton Beny", img: "/players/beny.png", color: "from-green-500 to-emerald-700" },
-  { name: "João José Jr", img: "/players/joaojr.png", color: "from-yellow-500 to-amber-700" },
+  { name: "Octávio Chuma", img: "/hof/jjj.jpg", color: "from-sky-500 to-blue-700" },
+  { name: "Marcus Sara", img: "/hof/jjj.jpg", color: "from-green-500 to-emerald-700" },
+  { name: "Elsídio Tique", img: "/hof/jjj.jpg", color: "from-yellow-500 to-amber-700" },
+  { name: "Cândido Adelina", img: "/hof/jjj.jpg", color: "from-red-500 to-rose-700" },
+  { name: "Helton Beny 👑", img: "/hof/jjj.jpg", color: "from-sky-500 to-blue-700" },
+  { name: "Eze Manave", img: "/hof/jjj.jpg", color: "from-green-500 to-emerald-700" },
+  { name: "Mouzinho Lourenço", img: "/hof/jjj.jpg", color: "from-yellow-500 to-amber-700" },
+  { name: "Dingane Jamela", img: "/hof/jjj.jpg", color: "from-red-500 to-rose-700" },
+  { name: "Miguel Rafael", img: "/hof/jjj.jpg", color: "from-green-500 to-emerald-700" },
+  { name: "João José Jr 👑", img: "/hof/jjj.jpg", color: "from-yellow-500 to-amber-700" },
 ];
 
 // ===========================================================
@@ -34,12 +34,12 @@ const samplePlayers = Array.from({ length: 24 }).map((_, i) => ({
 
 const editions = {
   first: {
-    year: "2025",
+    year: "8 de Junho 2025",
     description:
       "A primeira edição marcou o início da Bola ao Cesto. 24 atletas batalharam em jogos emocionantes até restarem apenas dois finalistas numa final épica.",
     winner: {
       name: "João José Júnior",
-      img: "/editions/first/winner.png",
+      img: "/torneio/1sted/72.jpg",
       quote: "“Trabalhei para este momento. Sou campeão — por todos nós!”",
     },
     players: samplePlayers,
@@ -48,25 +48,23 @@ const editions = {
       { name: "Miguel Rafael", img: "/editions/first/finalist2.png" },
     ],
     dates: [
-      { label: "Início da competição", date: "2023-05-01" },
-      { label: "Meias-Finais", date: "2023-06-15" },
-      { label: "Final", date: "2023-06-30" },
+      { label: "Final", date: "2025-06-08" },
     ],
     pictures: [
-      "/editions/first/pic1.png",
-      "/editions/first/pic2.png",
-      "/editions/first/pic3.png",
-      "/editions/first/pic4.png",
+      "/torneio/1sted/32.jpg",
+      "/torneio/1sted/61.jpg",
+      "/torneio/1sted/69.jpg",
+      "/torneio/1sted/89.jpg",
     ],
   },
 
   second: {
-    year: "2025",
+    year: "31 de Agosto 2025",
     description:
-      "A segunda edição vem com talentos renovados, rivalidades intensas e jogos imprevisíveis. Quem ficará na história este ano?",
+      "A segunda edição vem com talentos renovados, rivalidades intensas e jogos imprevisíveis. Quem ficará na história?",
     winner: {
-      name: "Eze Manave",
-      img: "/editions/second/winner.png",
+      name: "Helton Beny",
+      img: "/torneio/2nded/1.png",
       quote: "“Cada partida foi uma batalha. O esforço valeu a pena!”",
     },
     players: samplePlayers,
@@ -75,20 +73,18 @@ const editions = {
       { name: "Dingane Jamela", img: "/editions/second/finalist2.png" },
     ],
     dates: [
-      { label: "Torneio", date: "2025-08-31" },
-      { label: "Semifinal", date: "2025-09-05" },
-      { label: "Final", date: "2025-09-12" },
+      { label: "Final", date: "2025-08-31" },
     ],
     pictures: [
-      "/editions/second/pic1.png",
-      "/editions/second/pic2.png",
-      "/editions/second/pic3.png",
-      "/editions/second/pic4.png",
+      "/torneio/2nded/2.jpg",
+      "/torneio/2nded/3.jpg",
+      "/torneio/2nded/4.jpg",
+      "/torneio/2nded/5.jpg",
     ],
   },
 
   third: {
-    year: "2026",
+    year: "20 de Dezembro 2025",
     description:
       "A terceira edição chega mais competitiva do que nunca. Cada lance pode mudar a história do torneio.",
     winner: null,
@@ -156,7 +152,7 @@ const Torneio = () => {
       {/* HERO */}
       <div
         className="relative w-full h-[60vh] bg-cover bg-center flex flex-col items-center justify-center text-center"
-        style={{ backgroundImage: "url('/banner.png')" }}
+        style={{ backgroundImage: "url('/banner3.jpg')" }}
       >
         <div className="absolute inset-0 bg-black/60"></div>
 
@@ -173,7 +169,7 @@ const Torneio = () => {
               </div>
 
               <a
-                href="/support-us"
+                href="/bilhetes"
                 className="mt-6 inline-flex items-center gap-3 bg-royal-blue hover:bg-indigo-600 text-white font-bold py-3 px-6 rounded-full shadow-xl text-lg"
               >
                 <FaTicketAlt /> Comprar Bilhetes
@@ -259,8 +255,8 @@ const Torneio = () => {
           {/* View Moments Button */}
           {(edition === "first" || edition === "second") && (
             <a
-              href={`/editions/${edition}/moments`}
-              className="mt-6 inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-full shadow-lg text-lg"
+              href={`/momentos`}
+              className="mt-6 inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-6 rounded-full shadow-lg text-lg"
             >
               Ver Momentos
             </a>
@@ -280,22 +276,6 @@ const Torneio = () => {
           )}
         </section>
 
-        {/* FACTS & STATS BOX */}
-        {(edition === "first" || edition === "second") && (
-          <section className="mb-20 max-w-3xl mx-auto">
-            <div className="bg-white rounded-2xl shadow-xl p-6 border-l-4 border-royal-blue">
-              <h3 className="font-bold text-xl text-royal-blue mb-4">📊 Factos & Estatísticas</h3>
-              <ul className="space-y-3 text-gray-700">
-                <li>• 24 jogadores competem em cada edição.</li>
-                <li>• Apenas 2 chegam à final.</li>
-                <li>• Média de 37 jogos por edição.</li>
-                <li>• Jogador com mais aparições em finais: <strong>João José Jr</strong>.</li>
-                <li>• Taxa média de vitória da equipa azul: 61%.</li>
-              </ul>
-            </div>
-          </section>
-        )}
-
         {/* COMING SOON THIRD EDITION */}
         {edition === "third" && (
           <div className="text-center mb-16">
@@ -303,7 +283,7 @@ const Torneio = () => {
               Próxima Edição: 20 de Dezembro
             </p>
             <a
-              href="/support-us"
+              href="/bilhetes"
               className="inline-flex items-center gap-3 bg-royal-blue hover:bg-indigo-600 text-white font-bold py-3 px-6 rounded-full shadow-xl text-lg"
             >
               <FaTicketAlt /> Comprar Bilhetes
