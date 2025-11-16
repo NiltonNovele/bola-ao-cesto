@@ -21,7 +21,7 @@ const TicketPurchase = () => {
 
   // call backend to create order & Riha payment link
   const createOrderAndGetCheckout = async () => {
-    const response = await fetch("http://84.46.243.149:5004/api/create-order", {
+    const response = await fetch("https://api.bolaocesto.com/api/create-order", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ quantity }),

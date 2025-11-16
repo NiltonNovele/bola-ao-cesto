@@ -24,7 +24,7 @@ export default function BilheteSucesso() {
       return;
     }
 
-    fetch(`http://84.46.243.149:5004/api/order/${orderId}?access_token=${encodeURIComponent(token)}`)
+    fetch(`https://api.bolaocesto.com/api/order/${orderId}?access_token=${encodeURIComponent(token)}`)
       .then(async (r) => {
         if (!r.ok) {
           const t = await r.text();
