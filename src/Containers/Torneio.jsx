@@ -7,15 +7,15 @@ import { motion } from "framer-motion";
 // ===========================================================
 
 const topTenPlayers = [
-  { name: "Octávio Chuma", img: "/hof/jjj.jpg", color: "from-sky-500 to-blue-700" },
-  { name: "Marcus Sara", img: "/hof/jjj.jpg", color: "from-green-500 to-emerald-700" },
-  { name: "Elsídio Tique", img: "/hof/jjj.jpg", color: "from-yellow-500 to-amber-700" },
-  { name: "Cândido Adelina", img: "/hof/jjj.jpg", color: "from-red-500 to-rose-700" },
-  { name: "Helton Beny 👑", img: "/hof/jjj.jpg", color: "from-sky-500 to-blue-700" },
-  { name: "Eze Manave", img: "/hof/jjj.jpg", color: "from-green-500 to-emerald-700" },
-  { name: "Mouzinho Lourenço", img: "/hof/jjj.jpg", color: "from-yellow-500 to-amber-700" },
-  { name: "Dingane Jamela", img: "/hof/jjj.jpg", color: "from-red-500 to-rose-700" },
-  { name: "Miguel Rafael", img: "/hof/jjj.jpg", color: "from-green-500 to-emerald-700" },
+  { name: "Octávio Chuma", img: "/hof/oc.jpeg", color: "from-sky-500 to-blue-700" },
+  { name: "Marcus Sara", img: "/hof/ms.jpeg", color: "from-green-500 to-emerald-700" },
+  { name: "Elsídio Tique", img: "/hof/et.jpeg", color: "from-yellow-500 to-amber-700" },
+  { name: "Cândido Adelina", img: "/hof/ca.jpeg", color: "from-red-500 to-rose-700" },
+  { name: "Helton Beny 👑", img: "/hof/hb.jpeg", color: "from-sky-500 to-blue-700" },
+  { name: "Eze Manave", img: "/hof/em.jpeg", color: "from-green-500 to-emerald-700" },
+  { name: "Mouzinho Lourenço", img: "/hof/ml.jpeg", color: "from-yellow-500 to-amber-700" },
+  { name: "Dingane Jamela", img: "/hof/dj.jpeg", color: "from-red-500 to-rose-700" },
+  { name: "Miguel Rafael", img: "/hof/mr.jpeg", color: "from-green-500 to-emerald-700" },
   { name: "João José Jr 👑", img: "/hof/jjj.jpg", color: "from-yellow-500 to-amber-700" },
 ];
 
@@ -183,28 +183,72 @@ const Torneio = () => {
       <div className="max-w-7xl mx-auto px-6 py-16">
 
         {/* TOP 10 */}
-        <h2 className="text-4xl font-orbitron text-center text-royal-blue mb-12">
-          BAC Top 10 Hall of Fame
-        </h2>
+        {/* ============================ */}
+{/*     TOP 10 HALL OF FAME      */}
+{/* ============================ */}
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
-          {topTenPlayers.map((p, i) => (
-            <motion.div
-              key={p.name}
-              custom={i}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={cardVariants}
-              className={`rounded-xl shadow-lg overflow-hidden bg-gradient-to-b ${p.color}`}
-            >
-              <img src={p.img} className="w-full h-56 object-cover mix-blend-luminosity" />
-              <div className="p-3 bg-black/60 text-white font-semibold text-center">
-                {p.name}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+<h2 className="text-4xl md:text-5xl font-orbitron text-center text-royal-blue mb-16">
+  <motion.span
+    initial={{ opacity: 0, y: -20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6 }}
+  >
+    BAC Top 10 Hall of Fame
+  </motion.span>
+</h2>
+
+<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-10 mb-24">
+  {topTenPlayers.map((p, i) => (
+    <motion.div
+      key={p.name}
+      custom={i}
+      initial={{ opacity: 0, scale: 0.8, y: 30 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{
+        delay: i * 0.12,
+        duration: 0.45,
+        type: "spring",
+        stiffness: 110,
+      }}
+      whileHover={{
+        scale: 1.07,
+        translateY: -6,
+        boxShadow: "0 15px 30px rgba(0,0,0,0.4)",
+      }}
+      className={`relative rounded-2xl shadow-xl overflow-hidden bg-gradient-to-b ${p.color} group`}
+    >
+      {/* Shimmer Effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent 
+                      opacity-0 group-hover:opacity-100 rotate-12 
+                      transition-opacity duration-700" />
+
+      {/* Ranking Badge */}
+      <div
+        className={`
+          absolute top-3 left-3 z-10 px-3 py-1 rounded-full text-sm font-bold
+          ${i === 0 ? "bg-yellow-400 text-black" : ""}
+          ${i === 1 ? "bg-gray-300 text-black" : ""}
+          ${i === 2 ? "bg-amber-700 text-white" : ""}
+          ${i > 2 ? "bg-black/60 text-white backdrop-blur" : ""}
+        `}
+      >
+        #{i + 1}
+      </div>
+
+      <img
+        src={p.img}
+        className="w-full h-56 object-cover transition-all duration-700 group-hover:scale-110"
+      />
+
+      {/* Player Name Footer */}
+      <div className="p-3 bg-black/70 backdrop-blur-sm text-white font-semibold text-center text-sm md:text-base">
+        {p.name}
+      </div>
+    </motion.div>
+  ))}
+</div>
+
 
         {/* EDITION TOGGLE */}
         <div className="flex justify-center mb-12">

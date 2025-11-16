@@ -1,7 +1,8 @@
+// bilhetes.jsx
 import React, { useState } from "react";
 import { images } from "../Constants";
 
-const TICKET_PRICE_MZN = 1; // 100MZN per ticket
+const TICKET_PRICE_MZN = 100; // 100 MZN per ticket (update to your price)
 
 const TicketPurchase = () => {
   const [quantity, setQuantity] = useState(1);
@@ -18,49 +19,35 @@ const TicketPurchase = () => {
     return true;
   };
 
-  const createPaymentLink = async () => {
-  const amount = TICKET_PRICE_MZN * quantity;
-
-  try {
-    const response = await fetch("http://localhost:5004/api/create-payment", {
+  // call backend to create order & Riha payment link
+  const createOrderAndGetCheckout = async () => {
+    const response = await fetch("http://localhost:5004/api/create-order", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        amount,
-        currency: "MT",
-        description: `Bilhete(s) BAC x ${quantity}`,
-        redirect_url: `http://localhost:3000/BilheteSucesso?quantity=${quantity}`,
-        webhook_url: "http://localhost:3000webhooks/payment",
-        metadata: { quantity },
-      }),
+      body: JSON.stringify({ quantity }),
     });
 
-    const result = await response.json();
-
+    const json = await response.json();
     if (!response.ok) {
-      console.error("Erro ao criar link:", result);
-      alert("Erro ao gerar link de pagamento.");
+      console.error("Erro criar order:", json);
+      alert("Erro ao iniciar pagamento. Veja console.");
       return null;
     }
-
-    return result.checkout_url; 
-  } catch (error) {
-    console.error("Erro geral:", error);
-    alert("Erro de rede ao criar o link de pagamento.");
-    return null;
-  }
-};
-
+    return json.checkout_url;
+  };
 
   const handlePurchase = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setLoading(true);
-    const checkoutUrl = await createPaymentLink();
+    const checkoutUrl = await createOrderAndGetCheckout();
     setLoading(false);
 
-    if (checkoutUrl) window.location.href = checkoutUrl;
+    if (checkoutUrl) {
+      // redirect user to Riha checkout
+      window.location.href = checkoutUrl;
+    }
   };
 
   return (
