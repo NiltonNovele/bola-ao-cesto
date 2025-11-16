@@ -157,6 +157,9 @@ const Torneio = () => {
         <div className="absolute inset-0 bg-black/60"></div>
 
         <div className="relative z-10 text-white">
+          <br></br>
+          <br></br>
+          <br></br>
           <h1 className="text-5xl md:text-6xl font-extrabold font-orbitron">
             Torneio Bola ao Cesto
           </h1>

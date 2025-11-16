@@ -254,7 +254,7 @@ const Homepage = () => {
               whileHover="hover"
             >
               <img
-                src="/players/63.jpg"
+                src="/61.jpg"
                 alt="Vencedor da 1ª edição"
                 className="rounded-lg w-full h-48 object-cover mb-4"
               />

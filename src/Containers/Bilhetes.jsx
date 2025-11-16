@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { images } from "../Constants";
 
-const TICKET_PRICE_MZN = 100; // 100 MZN per ticket (update to your price)
+const TICKET_PRICE_MZN = 1; // 100 MZN per ticket (update to your price)
 
 const TicketPurchase = () => {
   const [quantity, setQuantity] = useState(1);
@@ -21,7 +21,7 @@ const TicketPurchase = () => {
 
   // call backend to create order & Riha payment link
   const createOrderAndGetCheckout = async () => {
-    const response = await fetch("http://localhost:5004/api/create-order", {
+    const response = await fetch("http://84.46.243.149:5004/api/create-order", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ quantity }),
