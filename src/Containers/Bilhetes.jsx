@@ -1,8 +1,10 @@
-// bilhetes.jsx
 import React, { useState } from "react";
 import { images } from "../Constants";
 
-const TICKET_PRICE_MZN = 1; // 100 MZN per ticket (update to your price)
+const TICKET_PRICE_MZN = 1;
+
+// Base URL do backend local
+ const API_BASE = "https://api.bolaocesto.com";
 
 const TicketPurchase = () => {
   const [quantity, setQuantity] = useState(1);
@@ -19,21 +21,28 @@ const TicketPurchase = () => {
     return true;
   };
 
-  // call backend to create order & Riha payment link
   const createOrderAndGetCheckout = async () => {
-    const response = await fetch("https://api.bolaocesto.com/api/create-order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ quantity }),
-    });
+    try {
+      const response = await fetch(`${API_BASE}/api/create-order`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ quantity }),
+      });
 
-    const json = await response.json();
-    if (!response.ok) {
-      console.error("Erro criar order:", json);
-      alert("Erro ao iniciar pagamento. Veja console.");
+      const json = await response.json();
+
+      if (!response.ok) {
+        console.error("Erro criar order:", json);
+        alert("Erro ao iniciar pagamento. Veja console.");
+        return null;
+      }
+
+      return json.checkout_url || json.url || null;
+    } catch (err) {
+      console.error("Erro criar order:", err);
+      alert("Erro ao conectar com o servidor.");
       return null;
     }
-    return json.checkout_url;
   };
 
   const handlePurchase = async (e) => {
@@ -45,7 +54,6 @@ const TicketPurchase = () => {
     setLoading(false);
 
     if (checkoutUrl) {
-      // redirect user to Riha checkout
       window.location.href = checkoutUrl;
     }
   };
@@ -60,33 +68,42 @@ const TicketPurchase = () => {
       }}
     >
       {loading && (
-        <div className="w-full h-screen fixed z-20 bg-black/20 flex items-center justify-center">
-          <img src={images.spinner} alt="Carregando" width={200} />
+        <div className="w-full h-screen fixed z-20 bg-black/30 flex items-center justify-center">
+          <img src={images.spinner} alt="Carregando" width={150} />
         </div>
       )}
 
       <form
-        className="w-full sm:w-[80%] md:w-[650px] flex flex-col gap-6 bg-white/90 p-8 rounded-2xl shadow-xl"
+        className="w-full sm:w-[80%] md:w-[650px] flex flex-col gap-6 bg-white/95 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-gray-200"
         onSubmit={handlePurchase}
       >
         <div className="flex justify-center mb-5">
-          <img src="/bac.png" alt="Bola AO Cesto" className="h-20 md:h-28" />
+          <img src="/bac.png" alt="Bola AO Cesto" className="h-24 md:h-32" />
         </div>
 
-        <div className="flex flex-col gap-2">
-          Quantidade de bilhetes ({TICKET_PRICE_MZN} MT cada)
+        <h1 className="text-2xl font-bold text-center text-blue-700 mb-4">
+          Comprar Bilhete(s)
+        </h1>
+
+        {errors && (
+          <div className="bg-red-100 text-red-700 p-3 rounded">{errors}</div>
+        )}
+
+        <div className="flex flex-col gap-3">
+          <label className="font-semibold">
+            Quantidade de bilhetes ({TICKET_PRICE_MZN} MT cada):
+          </label>
           <input
             type="number"
             min="1"
             value={quantity}
             onChange={(e) => setQuantity(Number(e.target.value))}
-            className="py-3 px-4 rounded-lg outline-none border bg-white"
+            className="py-3 px-4 rounded-lg outline-none border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:border-transparent"
           />
-          {errors && <p className="text-red-500 text-sm">{errors}</p>}
         </div>
 
         <div className="flex flex-col gap-3">
-          <h1 className="font-bold text-lg">Método de Pagamento:</h1>
+          <h2 className="font-semibold text-lg">Método de Pagamento:</h2>
           <div className="flex flex-wrap gap-5">
             <label className="flex items-center gap-2 cursor-pointer">
               <input
@@ -95,6 +112,7 @@ const TicketPurchase = () => {
                 value="mpesa"
                 checked={paymentMethod === "mpesa"}
                 onChange={() => setPaymentMethod("mpesa")}
+                className="accent-blue-500"
               />
               M-Pesa
             </label>
@@ -103,17 +121,16 @@ const TicketPurchase = () => {
 
         <div className="bg-blue-50 border border-blue-200 p-5 rounded-xl shadow-sm">
           <h2 className="font-semibold text-lg mb-2">
-            Pagamento Online via ({paymentMethod.toUpperCase()}):
+            Pagamento Online via {paymentMethod.toUpperCase()}
           </h2>
-          <p>
-            Clique em <b>“Comprar Bilhete”</b> para concluir o pagamento numa
-            página segura.
+          <p className="text-gray-700 text-sm">
+            Clique em <b>“Comprar Bilhete”</b> para ser redirecionado(a) para a página de pagamento segura. Confirme o pagamento no seu telemóvel e, quando concluído, você será redirecionado(a) para a página do seu bilhete.
           </p>
         </div>
 
         <button
           type="submit"
-          className="mt-5 bg-gradient-to-br from-blue-500 to-yellow-400 hover:from-yellow-400 hover:to-blue-500 font-bold rounded-lg text-sm px-5 py-3 text-white shadow-md"
+          className="mt-5 bg-gradient-to-br from-blue-500 to-yellow-400 hover:from-yellow-400 hover:to-blue-500 font-bold rounded-lg text-sm px-5 py-3 text-white shadow-md transition-transform transform hover:scale-105"
         >
           Comprar Bilhete
         </button>

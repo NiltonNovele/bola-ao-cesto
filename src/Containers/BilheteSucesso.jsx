@@ -1,4 +1,3 @@
-// BilheteSucesso.jsx
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -6,15 +5,18 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-const sanitize = (s) => (s ? s.split("?")[0].split("#")[0] : null);
+// Base URL do backend local
+ const API_BASE = "https://api.bolaocesto.com";
 
 export default function BilheteSucesso() {
   const q = useQuery();
   const orderId = q.get("order_id");
-  const token = sanitize(q.get("token") || q.get("access_token"));
+  const token = q.get("token");
 
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState(null);
+  const [tickets, setTickets] = useState([]);
+  const [fullName, setFullName] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -24,32 +26,42 @@ export default function BilheteSucesso() {
       return;
     }
 
-    fetch(`https://api.bolaocesto.com/api/order/${orderId}?access_token=${encodeURIComponent(token)}`)
+    fetch(`${API_BASE}/api/order/${orderId}?access_token=${encodeURIComponent(token)}`)
       .then(async (r) => {
-        if (!r.ok) {
-          const t = await r.text();
-          throw new Error(t || "Failed fetching order");
-        }
+        if (!r.ok) throw new Error(await r.text());
         return r.json();
       })
-      .then((json) => setOrder(json))
+      .then((json) => {
+        setOrder(json.order);
+        setTickets(json.tickets || []);
+        if (json.order?.customerName) setFullName(json.order.customerName);
+      })
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));
   }, [orderId, token]);
 
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text);
-    alert("Ticket ID copied to clipboard!");
-  };
+  const handleSaveName = async () => {
+    if (!fullName.trim()) {
+      alert("Por favor, insira o seu nome completo.");
+      return;
+    }
 
-  const downloadTicket = (ticketId) => {
-    const blob = new Blob([`Ticket ID: ${ticketId}`], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `ticket-${ticketId}.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
+    try {
+      const resp = await fetch(`${API_BASE}/api/update-tickets`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId, fullName }),
+      });
+
+      const data = await resp.json();
+      if (!resp.ok) throw new Error(data.error || "Erro ao atualizar tickets");
+
+      alert("Nome atualizado com sucesso!");
+      setTickets(data.tickets);
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    }
   };
 
   if (loading) return <p>Carregando...</p>;
@@ -57,43 +69,37 @@ export default function BilheteSucesso() {
   if (!order) return <div className="p-4">Sem dados.</div>;
 
   return (
-    <div className="p-8">
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
+    <div className="p-8 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Pagamento Confirmado — Os seus bilhetes</h1>
+      <p className="mb-2"><strong>Order:</strong> {order._id} — Status: {order.status}</p>
+      <p className="mb-4"><strong>Valor:</strong> {order.amount} {order.currency}</p>
 
-      <p className="mb-4">
-        <strong>Order:</strong> {order.order.id} — Status: Completed
-      </p>
+      <div className="mb-6">
+        <label className="block font-semibold mb-2">Seu nome completo:</label>
+        <input
+          type="text"
+          value={fullName}
+          onChange={(e) => setFullName(e.target.value)}
+          className="w-full border px-3 py-2 rounded"
+        />
+        <button
+          onClick={handleSaveName}
+          className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          Salvar Nome
+        </button>
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {order.tickets.map((t) => (
-          <div key={t.id} className="p-4 bg-white border rounded shadow flex flex-col gap-2">
-            <p><strong>Ticket ID:</strong> {t.id}</p>
-            <div className="flex gap-2 mt-2">
-              <button
-                onClick={() => copyToClipboard(t.id)}
-                className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-              >
-                Copiar
-              </button>
-              <button
-                onClick={() => downloadTicket(t.id)}
-                className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-              >
-                Baixar
-              </button>
-            </div>
+        {tickets.map((t) => (
+          <div key={t._id} className="p-4 bg-white border rounded shadow">
+            <p><strong>Ticket Code:</strong> {t.ticketCode}</p>
+            <p><strong>Nome:</strong> {t.customerName || fullName}</p>
+            <p><strong>Status:</strong> {t.status}</p>
+            {t.paidAt && <p><strong>Pago em:</strong> {new Date(t.paidAt).toLocaleString()}</p>}
           </div>
         ))}
       </div>
-
-      <p className="mt-6 text-sm text-gray-600">
-        Guarde estes bilhetes no seu telemóvel ou computador.
-      </p>
     </div>
   );
 }
