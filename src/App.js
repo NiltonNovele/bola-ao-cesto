@@ -44,7 +44,7 @@ function App() {
           }
         />
 
-        <Route path="/BilheteSucesso" element={<BilheteSucesso />} />       
+        <Route path="/Bilheteefmbnc4xkhwrfdbmsiwrkdfjwnseyefahdfbwvjgnjdvkuswngrfwcia4sengwjrfbcmuSucesso" element={<BilheteSucesso />} />       
         <Route path="/novidades" element={<News />} />
         <Route path="/news/:news_id" element={<NewsDetail />} />
         <Route path="/equipe" element={<Teams />} />
