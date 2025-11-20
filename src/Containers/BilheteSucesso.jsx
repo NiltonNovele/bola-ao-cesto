@@ -108,8 +108,6 @@ export default function BilheteSucesso() {
         <br></br>
         <br></br>
         <br></br>
-        <br></br>
-        <br></br>
       <h1 className="text-2xl font-bold mb-4">Seu Bilhete</h1>
       <div className="p-4 bg-white border rounded shadow flex flex-col gap-4">
         <p><strong>Ticket Code:</strong> {ticket.ticketCode}</p>
