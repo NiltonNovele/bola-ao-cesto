@@ -89,12 +89,14 @@ export default function BilheteSucesso() {
           <div className="text-green-500 text-6xl">✔️</div>
           <h1 className="text-2xl font-bold">Vemo-nos lá!</h1>
           <p>O seu bilhete foi salvo com sucesso.</p>
+          <p>Ao chegares na porta do evento, fornece o teu nome, numero de telefone ou o código do bilhete.</p>
           <button
             onClick={() => navigate("/")}
             className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           >
             Voltar à página inicial
           </button>
+
         </div>
       </div>
     );
