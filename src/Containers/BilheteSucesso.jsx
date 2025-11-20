@@ -103,8 +103,14 @@ export default function BilheteSucesso() {
   // Ticket form screen
   return (
     <div className="p-8 max-w-2xl mx-auto">
+      <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
       <h1 className="text-2xl font-bold mb-4">Seu Bilhete</h1>
-
       <div className="p-4 bg-white border rounded shadow flex flex-col gap-4">
         <p><strong>Ticket Code:</strong> {ticket.ticketCode}</p>
         <p><strong>Status:</strong> {ticket.status}</p>
