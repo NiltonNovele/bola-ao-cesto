@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { images } from "../Constants";
 
-const TICKET_PRICE_MZN = 2;
+const TICKET_PRICE_MZN = 100;
 
 const TicketPurchase = () => {
   const [quantity, setQuantity] = useState(1);
